@@ -6,17 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="pinyougou_common" />
         <module name="pinyougou_web_manager" />
-        <module name="pinyougou_web_user" />
+        <module name="pinyougou_common" />
+        <module name="spring_solrutil" />
         <module name="demo" />
-        <module name="pinyougou_service_buyer" />
+        <module name="pinyougou_web_user" />
         <module name="pinyougou_web_portal" />
+        <module name="pinyougou_service_buyer" />
+        <module name="pinyougou_service_page" />
         <module name="pinyougou_pojo" />
         <module name="pinyougou_service_search" />
         <module name="pinyougou_interface" />
         <module name="pinyougou_dao" />
-        <module name="pinyougou_service_page" />
         <module name="pinyougou_service_sellergoods" />
         <module name="pinyougou_web_shop" />
         <module name="pinyougou_service_user" />
@@ -38,6 +39,7 @@
       <module name="pinyougou_web_portal" target="1.8" />
       <module name="pinyougou_web_shop" target="1.8" />
       <module name="pinyougou_web_user" target="1.8" />
+      <module name="spring_solrutil" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_web_portal/pinyougou_web_portal.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_web_portal/pinyougou_web_portal.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_web_shop/pinyougou_web_shop.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_web_shop/pinyougou_web_shop.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_web_user/pinyougou_web_user.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_web_user/pinyougou_web_user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring_solrutil/spring_solrutil.iml" filepath="$PROJECT_DIR$/spring_solrutil/spring_solrutil.iml" />
     </modules>
   </component>
 </project>
