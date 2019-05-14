@@ -5,6 +5,7 @@ import cn.itcast.core.pojo.item.ItemCat;
 import cn.itcast.core.pojo.item.ItemCatQuery;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -16,12 +17,20 @@ import java.util.List;
 @Service
 @Transactional
 public class ItemCatServiceImpl implements ItemCatService {
+
     @Autowired
     private ItemCatDao itemCatDao;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     //搜索
     @Override
     public List<ItemCat> findByParentId(Long parentId) {
+        //    1:查询Mysql中的商品分类结果集 保存到缓存中一份
+        List<ItemCat> itemCats = findAll();
+        for (cn.itcast.core.pojo.item.ItemCat itemCat : itemCats) {
+            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(),itemCat.getTypeId());
+        }
         ItemCatQuery query = new ItemCatQuery();
         query.createCriteria().andParentIdEqualTo(parentId);
         return itemCatDao.selectByExample(query);
