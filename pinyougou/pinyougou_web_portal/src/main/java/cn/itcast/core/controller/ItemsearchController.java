@@ -22,7 +22,7 @@ public class ItemsearchController {
 
     //开始搜索
     @RequestMapping("/search")
-    public Map<String,Object> search(@RequestBody Map<String,String> searchMap){
+    public Map<String, Object> search(@RequestBody Map<String, String> searchMap) {
         return itemsearchService.search(searchMap);
     }
 }

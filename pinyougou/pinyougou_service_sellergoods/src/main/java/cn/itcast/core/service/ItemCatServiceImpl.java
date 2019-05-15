@@ -29,7 +29,7 @@ public class ItemCatServiceImpl implements ItemCatService {
         //    1:查询Mysql中的商品分类结果集 保存到缓存中一份
         List<ItemCat> itemCats = findAll();
         for (cn.itcast.core.pojo.item.ItemCat itemCat : itemCats) {
-            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(),itemCat.getTypeId());
+            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(), itemCat.getTypeId());
         }
         ItemCatQuery query = new ItemCatQuery();
         query.createCriteria().andParentIdEqualTo(parentId);

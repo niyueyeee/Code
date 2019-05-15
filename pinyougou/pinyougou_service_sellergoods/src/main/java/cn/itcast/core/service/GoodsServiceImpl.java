@@ -20,9 +20,19 @@ import com.github.pagehelper.PageHelper;
 import com.sun.tools.javac.comp.Todo;
 import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.solr.core.SolrTemplate;
+import org.springframework.data.solr.core.query.Criteria;
+import org.springframework.data.solr.core.query.SimpleQuery;
+import org.springframework.data.solr.core.query.SolrDataQuery;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.transaction.annotation.Transactional;
 import vo.GoodsVo;
 
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -215,6 +225,13 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
+    @Autowired
+    private JmsTemplate jmsTemplate;
+    @Autowired
+    private Destination topicPageAndSolrDestination;
+    @Autowired
+    private Destination queueSolrDeleteDestination;
+
     //更新状态
     @Override
     public void updateStatus(Long[] ids, String status) {
@@ -226,11 +243,18 @@ public class GoodsServiceImpl implements GoodsService {
             goodsDao.updateByPrimaryKeySelective(goods);
             //只有在审核通过的时候才会执行下面处理
             if ("1".equals(status)) {
-                //TODO 2:将商品信息保存到索引库
-                //TODO 3:将商品信息进行静态化处理
+
+                //发消息
+                jmsTemplate.send(topicPageAndSolrDestination, new MessageCreator() {
+                    @Override
+                    public Message createMessage(Session session) throws JMSException {
+                        return session.createTextMessage(String.valueOf(id));
+                    }
+                });
             }
         }
     }
+
 
     //删除
     @Override
@@ -241,7 +265,14 @@ public class GoodsServiceImpl implements GoodsService {
             goods.setId(id);
             //1:逻辑删除 更改商品的是否删除属性
             goodsDao.updateByPrimaryKeySelective(goods);
-            //TODO 2:删除索引库中的商品信息
+            //2:发消息
+            jmsTemplate.send(queueSolrDeleteDestination, new MessageCreator() {
+                @Override
+                public Message createMessage(Session session) throws JMSException {
+                    return session.createTextMessage(String.valueOf(id));
+                }
+            });
+
         }
     }
 

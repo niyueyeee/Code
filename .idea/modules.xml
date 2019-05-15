@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyProject.iml" filepath="$PROJECT_DIR$/MyProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_common/pinyougou_common.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_common/pinyougou_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_dao/pinyougou_dao.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_dao/pinyougou_dao.iml" />
@@ -14,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_service_search/pinyougou_service_search.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_service_search/pinyougou_service_search.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_service_sellergoods/pinyougou_service_sellergoods.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_service_sellergoods/pinyougou_service_sellergoods.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_service_user/pinyougou_service_user.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_service_user/pinyougou_service_user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougou_sms/pinyougou_sms.iml" filepath="$PROJECT_DIR$/pinyougou_sms/pinyougou_sms.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_web_manager/pinyougou_web_manager.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_web_manager/pinyougou_web_manager.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_web_portal/pinyougou_web_portal.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_web_portal/pinyougou_web_portal.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyougou/pinyougou_web_shop/pinyougou_web_shop.iml" filepath="$PROJECT_DIR$/pinyougou/pinyougou_web_shop/pinyougou_web_shop.iml" />

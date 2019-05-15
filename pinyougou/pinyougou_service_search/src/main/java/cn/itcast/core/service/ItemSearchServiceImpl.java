@@ -2,18 +2,18 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.pojo.item.Item;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.*;
 import org.springframework.data.solr.core.query.result.*;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.logging.SimpleFormatter;
 
 /**
  * 搜索管理
@@ -28,21 +28,26 @@ public class ItemSearchServiceImpl implements ItemsearchService {
 
     @Override
     public Map<String, Object> search(Map<String, String> searchMap) {
-        HashMap<String, Object> resultMap = new HashMap<>();
+        //处理关键词
+        searchMap.put("keywords", searchMap.get("keywords").replaceAll(" ", ""));
+        Map<String, Object> resultMap = new HashMap<>();
         //1:商品分类结果集
         List<String> categoryListByKeywords = findCategoryListByKeywords(searchMap);
         resultMap.put("categoryList", categoryListByKeywords);
+
+
         if (null != categoryListByKeywords && categoryListByKeywords.size() > 0) {
             Object typeId = redisTemplate.boundHashOps("itemCat").get(categoryListByKeywords.get(0));
             //2:品牌结果集
             List<Map> brandList = (List<Map>) redisTemplate.boundHashOps("brandList").get(typeId);
             //3:规格结果集
-            List<Map> specList = (List<Map>) redisTemplate.boundHashOps("apecList").get(typeId);
+            List<Map> specList = (List<Map>) redisTemplate.boundHashOps("specList").get(typeId);
             resultMap.put("brandList", brandList);
             resultMap.put("specList", specList);
         }
         //4:查询结果集 总条数 总页数
         resultMap.putAll(search2(searchMap));
+        //查询高亮结果集
         return resultMap;
     }
 
@@ -73,7 +78,48 @@ public class ItemSearchServiceImpl implements ItemsearchService {
         Criteria criteria = new Criteria("item_keywords").is(searchMap.get("keywords"));
         SimpleHighlightQuery highlightQuery = new SimpleHighlightQuery(criteria);
         //过滤条件
+        //商品分类
+        if (null != searchMap.get("category") && !"".equals(searchMap.get("category"))) {
+            SimpleFilterQuery filterQuery = new SimpleFilterQuery();
+            filterQuery.addCriteria(new Criteria("item_category").is(searchMap.get("category")));
+            highlightQuery.addFilterQuery(filterQuery);
+        }
+        //品牌
+        if (null != searchMap.get("brand") && !"".equals(searchMap.get("brand"))) {
+            FilterQuery filterQuery = new SimpleFilterQuery();
+            filterQuery.addCriteria(new Criteria("item_brand").is(searchMap.get("brand")));
+            highlightQuery.addFilterQuery(filterQuery);
+        }
+        //价格区间
+        if (null != searchMap.get("price") && !"".equals(searchMap.get("price"))) {
+            String[] p = searchMap.get("price").split("-");
+            FilterQuery filterQuery = new SimpleFilterQuery();//0-500  3000-*
+            if ("*".equals(p[1])) {
+                filterQuery.addCriteria(new Criteria("item_price").greaterThanEqual(p[0]));
+            } else {
+                filterQuery.addCriteria(new Criteria("item_price").between(p[0], p[1], true, false));
+            }
+            highlightQuery.addFilterQuery(filterQuery);
+        }
+        //规格
+        if (null != searchMap.get("spec") && !"".equals(searchMap.get("spec"))) {
+            Map<String, String> specMap = JSON.parseObject(searchMap.get("spec"), Map.class);
+            Set<Map.Entry<String, String>> entries = specMap.entrySet();
+            for (Map.Entry<String, String> entry : entries) {
+                FilterQuery filterQuery = new SimpleFilterQuery();
+                filterQuery.addCriteria(new Criteria("item_spec_" + entry.getKey()).is(entry.getValue()));
+                highlightQuery.addFilterQuery(filterQuery);
+            }
+        }
         //排序
+        if (null != searchMap.get("sort") && !"".equals(searchMap.get("sort"))) {
+            //1:先自营 与 销量
+            if ("DESC".equals(searchMap.get("sort"))) {
+                highlightQuery.addSort(new Sort(Sort.Direction.DESC, "item_" + searchMap.get("sortField")));//"item_updatetime"  item_price
+            } else {
+                highlightQuery.addSort(new Sort(Sort.Direction.ASC, "item_" + searchMap.get("sortField")));
+            }
+        }
         //分页
         String pageNo = searchMap.get("pageNo");
         String pageSize = searchMap.get("pageSize");

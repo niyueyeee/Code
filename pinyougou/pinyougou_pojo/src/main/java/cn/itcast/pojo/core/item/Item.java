@@ -19,7 +19,6 @@ public class Item implements Serializable {
      */
 
 
-
     @Field
     private Long id;
 
@@ -101,20 +100,15 @@ public class Item implements Serializable {
     private String isDefault;
 
 
-
     private String sellerId;
 
     private String cartThumbnail;
 
 
-
-
-
     //附加属性
     @Dynamic
     @Field("item_spec_*")
-    private Map<String,String> specMap;
-
+    private Map<String, String> specMap;
 
 
     //规格  字符串类型

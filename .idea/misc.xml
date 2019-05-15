@@ -14,9 +14,9 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pinyougou/pom.xml" />
-        <option value="$PROJECT_DIR$/demo/pom.xml" />
         <option value="$PROJECT_DIR$/spring_solrutil/pom.xml" />
+        <option value="$PROJECT_DIR$/pinyougou/pom.xml" />
+        <option value="$PROJECT_DIR$/pinyougou_sms/pom.xml" />
       </list>
     </option>
   </component>

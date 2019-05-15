@@ -48,29 +48,29 @@
     <div id="item">
         <div class="crumb-wrap">
             <ul class="sui-breadcrumb">
-                <!--
-					<li>
-						<a href="#">${itemCat1}</a>
-					</li>
-					<li>
-						<a href="#">${itemCat2}</a>
-					</li>
-					<li>
-						<a href="#">${itemCat3}</a>
-					</li>	
-					-->
+
+                <li>
+                    <a href="#">${itemCat1}</a>
+                </li>
+                <li>
+                    <a href="#">${itemCat2}</a>
+                </li>
+                <li>
+                    <a href="#">${itemCat3}</a>
+                </li>
+
             </ul>
         </div>
         <!--product-info-->
         <div class="product-info">
             <div class="fl preview-wrap">
-                <!--放大镜效果-->
+                <!--放大镜效果jquery.zoom.js -->
                 <div class="zoom">
                     <!--默认第一个预览-->
                     <div id="preview" class="spec-preview">
 							<span class="jqzoom">
 							 <#if (imageList?size>0)>
-                                 <img jqimg="${imageList[0].url}" src="${imageList[0].url}" width="400px"
+                                 <img jqimg="${imageList[1].url}" src="${imageList[0].url}" width="400px"
                                       height="400px"/>
                              </#if>
 							</span>

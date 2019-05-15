@@ -41,10 +41,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         for (cn.itcast.core.pojo.template.TypeTemplate typeTemplate : typeTemplates) {
             List<Map> brandList = JSON.parseArray(typeTemplate.getBrandIds(), Map.class);
             //缓存品牌列表
-            redisTemplate.boundHashOps("brandList").put(typeTemplate.getId(),brandList);
+            redisTemplate.boundHashOps("brandList").put(typeTemplate.getId(), brandList);
             //获取List<Map>
             List<Map> specList = findBySpecList(typeTemplate.getId());
-            redisTemplate.boundHashOps("specList").put(typeTemplate.getId(),specList);
+            redisTemplate.boundHashOps("specList").put(typeTemplate.getId(), specList);
 
         }
         PageHelper.startPage(page, rows);
