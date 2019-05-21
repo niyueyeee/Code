@@ -8,12 +8,17 @@
           <option name="destinations">
             <list>
               <DestinationDto>
-                <option name="id" value="22ce2714-8f92-4bff-bdc7-3fed9fbbea1b" />
+                <option name="id" value="e57531a6-831c-4fd6-907a-ce6466ddf66c" />
+                <option name="name" value="sms" />
+                <option name="type" value="QUEUE" />
+              </DestinationDto>
+              <DestinationDto>
+                <option name="id" value="659cb36a-b4e8-4b81-892c-45e52d160a45" />
                 <option name="name" value="pinyougou_topic_page_solr" />
                 <option name="type" value="TOPIC" />
               </DestinationDto>
               <DestinationDto>
-                <option name="id" value="ed856b51-52d1-467a-8cf5-28758868fdd5" />
+                <option name="id" value="25a78169-6603-48ea-a222-27eaf66cd63c" />
                 <option name="name" value="pinyougou_queue_solr_delete" />
                 <option name="type" value="QUEUE" />
               </DestinationDto>
