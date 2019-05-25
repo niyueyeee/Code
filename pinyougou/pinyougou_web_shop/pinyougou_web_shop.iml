@@ -51,9 +51,6 @@
     <orderEntry type="module" module-name="pinyougou_interface" />
     <orderEntry type="module" module-name="pinyougou_pojo" />
     <orderEntry type="module" module-name="pinyougou_common" />
-    <orderEntry type="module" module-name="pinyougou_interface" />
-    <orderEntry type="module" module-name="pinyougou_pojo" />
-    <orderEntry type="module" module-name="pinyougou_common" />
     <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:0.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.2.8" level="project" />
